@@ -1,0 +1,27 @@
+{
+  "disabled": false,
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": ["get"],
+      "route": "links/user/{userId}"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    },
+    {
+      "name": "documents",
+      "type": "cosmosDB",
+      "direction": "in",
+      "databaseName": "linkylinkdb",
+      "collectionName": "linkbundles",
+      "sqlQuery": "SELECT c.userId, c.vanityUrl, c.description, ARRAY_LENGTH(c.links) as linkCount FROM c where c.userId = {userId}",
+      "connectionStringSetting": "LinkLinkConnection"
+    }
+  ]
+}

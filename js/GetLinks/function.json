@@ -1,0 +1,27 @@
+{
+  "disabled": false,
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": ["get"],
+      "route": "links/{vanityUrl}"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    },
+    {
+      "name": "documents",
+      "type": "cosmosDB",
+      "direction": "in",
+      "databaseName": "linkylinkdb",
+      "collectionName": "linkbundles",
+      "sqlQuery": "SELECT * FROM linkbundles lb WHERE LOWER(lb.vanityUrl) = LOWER({vanityUrl})",
+      "connectionStringSetting": "LinkLinkConnection"
+    }
+  ]
+}
